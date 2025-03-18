@@ -197,8 +197,9 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;PLATFORM_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAs>Default</CompileAs>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;$(SolutionDir)..\..\..\raylib-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -236,7 +237,8 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;PLATFORM_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAs>Default</CompileAs>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;$(SolutionDir)..\..\..\raylib-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -282,11 +284,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;PLATFORM_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;$(SolutionDir)..\..\..\raylib-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>Default</CompileAs>
       <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -334,9 +337,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;PLATFORM_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;$(SolutionDir)..\..\..\raylib-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>Default</CompileAs>
       <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -359,18 +363,28 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\screens.h" />
+    <ClCompile Include="..\..\..\src\main.cpp" />
+    <ClCompile Include="..\..\..\src\raygui-cpp\Control.cpp" />
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\Button.cpp" />
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\ComboBox.cpp" />
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\DropdownBox.cpp" />
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\Label.cpp" />
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\ListView.cpp" />
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\Panel.cpp" />
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\WindowBox.cpp" />
+    <ClCompile Include="..\..\..\src\raygui-cpp\Layout.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\raylib_game.c" />
-    <ClCompile Include="..\..\..\src\screen_logo.c" />
-    <ClCompile Include="..\..\..\src\screen_title.c" />
-    <ClCompile Include="..\..\..\src\screen_options.c" />
-    <ClCompile Include="..\..\..\src\screen_gameplay.c" />
-    <ClCompile Include="..\..\..\src\screen_ending.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="..\..\..\src\raylib_game.rc" />
+    <ClInclude Include="..\..\..\src\raygui-cpp\Control.h" />
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\Button.h" />
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\ComboBox.h" />
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\DropdownBox.h" />
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\Label.h" />
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\ListView.h" />
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\Panel.h" />
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\WindowBox.h" />
+    <ClInclude Include="..\..\..\src\raygui-cpp\Layout.h" />
+    <ClInclude Include="..\..\..\src\raygui.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

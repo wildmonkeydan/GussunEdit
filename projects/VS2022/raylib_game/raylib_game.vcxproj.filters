@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="raygui-cpp">
+      <UniqueIdentifier>{5bbdb219-a686-4999-8627-2f503d7639f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="raygui-cpp\Controls">
+      <UniqueIdentifier>{31feaa6c-cf47-4bf0-b994-0db0facf9230}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\raygui.h" />
+    <ClInclude Include="..\..\..\src\raygui-cpp\Layout.h">
+      <Filter>raygui-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\raygui-cpp\Control.h">
+      <Filter>raygui-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\WindowBox.h">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\ListView.h">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\Panel.h">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\Label.h">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\DropdownBox.h">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\Button.h">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\raygui-cpp\Controls\ComboBox.h">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\main.cpp" />
+    <ClCompile Include="..\..\..\src\raygui-cpp\Layout.cpp">
+      <Filter>raygui-cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\raygui-cpp\Control.cpp">
+      <Filter>raygui-cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\WindowBox.cpp">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\ListView.cpp">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\Panel.cpp">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\Label.cpp">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\DropdownBox.cpp">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\Button.cpp">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\raygui-cpp\Controls\ComboBox.cpp">
+      <Filter>raygui-cpp\Controls</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
