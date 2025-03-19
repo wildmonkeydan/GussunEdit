@@ -14,11 +14,6 @@ int main() {
     raylib::Window window(screenWidth, screenHeight, "GussunEdit");
     raygui::Layout layout("GussunEdit.rgl");
 
-    raygui::Button* button = (raygui::Button*)layout.GetControl("OpenFileButton");
-    button->onClicked = TestButton;
-    std::vector<int> shortcut = { KEY_LEFT_CONTROL,KEY_O };
-    button->shortcut = shortcut;
-
     SetTargetFPS(60);
 
     while (!window.ShouldClose())

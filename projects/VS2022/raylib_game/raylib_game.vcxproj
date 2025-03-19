@@ -363,7 +363,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\Archive.cpp" />
     <ClCompile Include="..\..\..\src\main.cpp" />
+    <ClCompile Include="..\..\..\src\Palette.cpp" />
     <ClCompile Include="..\..\..\src\raygui-cpp\Control.cpp" />
     <ClCompile Include="..\..\..\src\raygui-cpp\Controls\Button.cpp" />
     <ClCompile Include="..\..\..\src\raygui-cpp\Controls\ComboBox.cpp" />
@@ -375,6 +377,8 @@
     <ClCompile Include="..\..\..\src\raygui-cpp\Layout.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\Archive.h" />
+    <ClInclude Include="..\..\..\src\Palette.h" />
     <ClInclude Include="..\..\..\src\raygui-cpp\Control.h" />
     <ClInclude Include="..\..\..\src\raygui-cpp\Controls\Button.h" />
     <ClInclude Include="..\..\..\src\raygui-cpp\Controls\ComboBox.h" />

@@ -37,6 +37,8 @@
     <ClInclude Include="..\..\..\src\raygui-cpp\Controls\ComboBox.h">
       <Filter>raygui-cpp\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\Archive.h" />
+    <ClInclude Include="..\..\..\src\Palette.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\main.cpp" />
@@ -67,5 +69,7 @@
     <ClCompile Include="..\..\..\src\raygui-cpp\Controls\ComboBox.cpp">
       <Filter>raygui-cpp\Controls</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Archive.cpp" />
+    <ClCompile Include="..\..\..\src\Palette.cpp" />
   </ItemGroup>
 </Project>
