@@ -40,9 +40,10 @@ namespace raygui {
         } GuiControlType;
 
 		virtual void Draw() = 0;
+
+		raylib::Rectangle dimensions;
 	protected:
 		GuiControlType type;
-		raylib::Rectangle dimensions;
 		unsigned int id;
         bool active = true;
 	};

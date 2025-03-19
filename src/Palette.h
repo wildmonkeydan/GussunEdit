@@ -11,8 +11,9 @@ public:
 	int GetSelectedColour();
 
 	void SetComboBox(raygui::ComboBox* combo);
+
+	raylib::Color colours[16];
 private:
 	raygui::ComboBox* paletteSelect = nullptr;
 	int selectedColour = 0;
-	raylib::Color colours[16];
 };
