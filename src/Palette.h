@@ -4,16 +4,21 @@
 class Palette
 {
 public:
+	struct ColourBox {
+		raylib::Color col;
+		raylib::Rectangle rect;
+	};
+
 	Palette();
+	~Palette();
 
 	void Update();
 	void Draw();
 	int GetSelectedColour();
 
 	void SetComboBox(raygui::ComboBox* combo);
-
-	raylib::Color colours[16];
-private:
+	ColourBox colours[16];
 	raygui::ComboBox* paletteSelect = nullptr;
+private:
 	int selectedColour = 0;
 };

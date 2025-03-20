@@ -2,8 +2,6 @@
 #include "raygui-cpp/Controls/ComboBox.h"
 #include "raygui-cpp/Controls/Panel.h"
 
-using namespace raylib;
-
 PIX_RGB5 ColourToRGB5(raylib::Color& col) {
 	PIX_RGB5 conv = { col.r / 8, col.g / 8, col.b / 8, 0 };
 	return conv;
@@ -13,7 +11,7 @@ raylib::Color RGB5ToColour(PIX_RGB5* col) {
 	return raylib::Color(col->r * 8, col->g * 8, col->b * 8);
 }
 
-Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette)
+Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette) : pal(palette)
 {
 	int fileSize = 0;
 	unsigned char* file = LoadFileData(filepath.c_str(), &fileSize);
@@ -39,7 +37,8 @@ Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette)
 		}
 		else {
 			Sheet sheet;
-			sheet.img = raylib::Image(imgHdr->w, imgHdr->h);
+			sheet.img = raylib::Image(imgHdr->w * 4, imgHdr->h);
+			sheet.img.Format(PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
 			int imgSize = (imgHdr->w * imgHdr->h) * 2;
 
 			sheet.data = (unsigned char*)MemAlloc(imgSize);
@@ -51,16 +50,19 @@ Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette)
 	}
 
 	UnloadFileData(file);
+	
+	sheetChoice = (raygui::ListView*)layout.GetControl("ImageSelect");
+	sheetChoice->onChoose = std::bind(&Archive::SwapSheet, this, std::placeholders::_1);
 
 	SetupPalette(layout);
 	SetupSheets();
 
-	raygui::Panel* viewPanel = (raygui::Panel*)layout.GetControl("Workspace");
+	raygui::Panel* viewPanel = (raygui::Panel*)layout.GetControl("WorkspaceFrame");
 
-	viewport = raylib::RenderTexture(viewPanel->dimensions.width, viewPanel->dimensions.height);
-	viewportPos = viewPanel->dimensions.GetPosition();
+	viewport = raylib::RenderTexture(viewPanel->dimensions.width - 2, viewPanel->dimensions.height - 2);
+	viewportDim = raylib::Rectangle(viewPanel->dimensions.GetPosition().x + 1, viewPanel->dimensions.GetPosition().y + 1, viewPanel->dimensions.width - 2, viewPanel->dimensions.height - 2);
 
-	cam = raylib::Camera2D(raylib::Vector2(), currentSheet.GetSize() / 2.f);
+	cam = raylib::Camera2D(viewPanel->dimensions.GetSize() / 2.f, raylib::Vector2(128,128));
 }
 
 Archive::~Archive()
@@ -73,26 +75,53 @@ Archive::~Archive()
 void Archive::Update()
 {
 	float scroll = GetMouseWheelMove();
-	cam.zoom += scroll / zoomPower;
-	cam.target = cam.GetScreenToWorld(GetMousePosition());
+
+	if (scroll != 0.f) {
+		cam.zoom += scroll / zoomPower;
+	}
+
+	if (raylib::Vector2(GetMouseDelta()) != raylib::Vector2() && raylib::Mouse::IsButtonDown(MOUSE_BUTTON_MIDDLE)) {
+		cam.offset = raylib::Vector2(raylib::Mouse::GetDelta().x, raylib::Mouse::GetDelta().y * -1) + cam.offset;
+	}
+
+	cursorPos = cam.GetScreenToWorld(raylib::Vector2(raylib::Mouse::GetPosition().x - viewportDim.x, (viewport.texture.height / 2.f - ((raylib::Mouse::GetPosition().y - viewport.texture.height / 2.f) - viewportDim.y))));
 }
 void Archive::Draw()
 {
 	viewport.BeginMode();
 	cam.BeginMode();
 
-	currentSheet.Draw();
+	ClearBackground(RAYWHITE);
+	currentSheet.Draw(0,0);
+
+	if (viewportDim.CheckCollision(GetMousePosition()))
+		DrawRectangle(cursorPos.x, cursorPos.y, 1, 1, Color{ 0,0,0,100 });
 
 	cam.EndMode();
 	viewport.EndMode();
 
-	viewport.GetTexture().Draw(viewportPos);
+	viewport.GetTexture().Draw(viewportDim.GetPosition());
 }
 
 void Archive::SetupPalette(raygui::Layout& layout)
 {
 	raygui::ComboBox* comboBox = (raygui::ComboBox*)layout.GetControl("PaletteSelect");
-	pal->SetComboBox(comboBox);
+	pal->paletteSelect = comboBox;
+
+	raylib::Vector2 offset(pal->paletteSelect->dimensions.x + pal->paletteSelect->dimensions.width + 72, pal->paletteSelect->dimensions.y);
+	raylib::Vector2 size(24, 24);
+	for (int i = 0; i < 16; i++) {
+		pal->colours[i].rect = raylib::Rectangle(offset, size);
+		offset += raylib::Vector2(24, 0);
+	}
+
+	std::string list;
+	for (int i = 0; i < cluts.size(); i++) {
+		list += std::to_string(i + 1) + ";";
+	}
+	list.erase(list.end() - 1);
+
+	comboBox->list = list;
 
 	comboBox->onChoose = std::bind(&Archive::SwapPalette, this, std::placeholders::_1);
 	SwapPalette(0);
@@ -100,20 +129,42 @@ void Archive::SetupPalette(raygui::Layout& layout)
 
 void Archive::SetupSheets()
 {
+	std::string list;
+
 	for (int i = 0; i < sheets.size(); i++) {
-		IndexedPixel* pix = (IndexedPixel*)sheets[i].data;
-		for (int y = 0; y < sheets[i].img.height; y++) {
-			for (int x = 0; x < sheets[i].img.width * 2; x++) {
-				sheets[i].img.DrawPixel(x * 2, y, pal->colours[pix->pix0]);
-				sheets[i].img.DrawPixel((x * 2) + 1, y, pal->colours[pix->pix1]);
-			}
-		}
+		sheets[i].ConvertToImage(pal);
+		list += std::to_string(i + 1) + ";";
 	}
+	list.erase(list.end() - 1);
 
 	currentSheet = sheets[0].img.LoadTexture();
+	sheetChoice->list = list;
 }
 
 void Archive::SwapPalette(int index)
 {
-	memcpy(pal->colours, cluts[index].cols, sizeof(raylib::Color) * 16);
+	for (int i = 0; i < 16; i++) {
+		pal->colours[i].col = cluts[index].cols[i];
+	}
+	sheets[sheetChoice->activeIndex].ConvertToImage(pal);
+	currentSheet = sheets[sheetChoice->activeIndex].img.LoadTexture();
+}
+
+void Archive::SwapSheet(int index)
+{
+	SwapPalette(pal->paletteSelect->activeIndex);
+}
+
+void Archive::Sheet::ConvertToImage(Palette* pal)
+{
+	IndexedPixel* pix = (IndexedPixel*)data;
+	for (int y = 0; y < img.height; y++) {
+		for (int x = 0; x < img.width / 2; x++) {
+			img.DrawPixel(x * 2, y, pal->colours[pix->pix0].col);
+			img.DrawPixel((x * 2) + 1, y, pal->colours[pix->pix1].col);
+			pix++;
+		}
+	}
+	img.Rotate(180);
+	img.FlipHorizontal();
 }

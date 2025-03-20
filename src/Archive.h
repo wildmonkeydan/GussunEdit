@@ -1,5 +1,6 @@
 #pragma once
 #include "raygui-cpp/Layout.h"
+#include "raygui-cpp/Controls/ListView.h"
 #include "raylib-cpp.hpp"
 #include "Palette.h"
 
@@ -27,8 +28,10 @@ public:
 	};
 
 	struct Sheet {
-		unsigned char* data;
+		unsigned char* data = nullptr;
 		raylib::Image img;
+
+		void ConvertToImage(Palette* pal);
 	};
 
 	struct CLUT {
@@ -50,15 +53,19 @@ private:
 	void SetupSheets();
 
 	void SwapPalette(int index);
+	void SwapSheet(int index);
 
 	Palette* pal = nullptr;
 	raylib::Texture currentSheet;
 	raylib::RenderTexture viewport;
 	raylib::Camera2D cam;
-	raylib::Vector2 viewportPos;
+	raylib::Rectangle viewportDim;
+	raylib::Vector2 cursorPos;
 
 	std::vector<Sheet> sheets;
 	std::vector<CLUT> cluts;
+
+	raygui::ListView* sheetChoice;
 
 	const float zoomPower = 4.f;
 };

@@ -12,7 +12,7 @@ namespace raygui {
 
 		std::string list;
 		int scrollIndex = 0;
-		int activeIndex = -1;
+		int activeIndex = 0;
 		std::function<void(int)> onChoose;
 	};
 }
