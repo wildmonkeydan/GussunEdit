@@ -54,8 +54,11 @@ private:
 	Palette* pal = nullptr;
 	raylib::Texture currentSheet;
 	raylib::RenderTexture viewport;
+	raylib::Camera2D cam;
 	raylib::Vector2 viewportPos;
 
 	std::vector<Sheet> sheets;
 	std::vector<CLUT> cluts;
+
+	const float zoomPower = 4.f;
 };

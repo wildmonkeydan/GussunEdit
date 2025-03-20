@@ -59,6 +59,8 @@ Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette)
 
 	viewport = raylib::RenderTexture(viewPanel->dimensions.width, viewPanel->dimensions.height);
 	viewportPos = viewPanel->dimensions.GetPosition();
+
+	cam = raylib::Camera2D(raylib::Vector2(), currentSheet.GetSize() / 2.f);
 }
 
 Archive::~Archive()
@@ -70,11 +72,18 @@ Archive::~Archive()
 
 void Archive::Update()
 {
+	float scroll = GetMouseWheelMove();
+	cam.zoom += scroll / zoomPower;
+	cam.target = cam.GetScreenToWorld(GetMousePosition());
 }
 void Archive::Draw()
 {
 	viewport.BeginMode();
+	cam.BeginMode();
+
 	currentSheet.Draw();
+
+	cam.EndMode();
 	viewport.EndMode();
 
 	viewport.GetTexture().Draw(viewportPos);
