@@ -25,7 +25,7 @@ void Palette::Draw()
 }
 int Palette::GetSelectedColour()
 {
-	return 0;
+	return selectedColour;
 }
 
 void Palette::SetComboBox(raygui::ComboBox* combo)

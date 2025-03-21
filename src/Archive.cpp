@@ -1,6 +1,7 @@
 #include "Archive.h"
 #include "raygui-cpp/Controls/ComboBox.h"
 #include "raygui-cpp/Controls/Panel.h"
+#include "raygui-cpp/Controls/Button.h"
 
 PIX_RGB5 ColourToRGB5(raylib::Color& col) {
 	PIX_RGB5 conv = { col.r / 8, col.g / 8, col.b / 8, 0 };
@@ -13,7 +14,6 @@ raylib::Color RGB5ToColour(PIX_RGB5* col) {
 
 Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette) : pal(palette)
 {
-	int fileSize = 0;
 	unsigned char* file = LoadFileData(filepath.c_str(), &fileSize);
 
 	Header* hdr = (Header*)file;
@@ -25,6 +25,7 @@ Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette)
 
 		if (imgHdr->h == 1) { // Load as palette
 			CLUT clut;
+			memcpy(&clut.header, imgHdr, sizeof(ImgHeader));
 			PIX_RGB5* col = (PIX_RGB5*)seekHead;
 
 			for (int i = 0; i < imgHdr->w; i++) {
@@ -34,9 +35,11 @@ Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette)
 
 			seekHead = (unsigned char*)col;
 			cluts.push_back(clut);
+			fileStructure.push_back(1);
 		}
 		else {
 			Sheet sheet;
+			memcpy(&sheet.header, imgHdr, sizeof(ImgHeader));
 			sheet.img = raylib::Image(imgHdr->w * 4, imgHdr->h);
 			sheet.img.Format(PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
 			int imgSize = (imgHdr->w * imgHdr->h) * 2;
@@ -46,6 +49,7 @@ Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette)
 			seekHead += imgSize;
 
 			sheets.push_back(sheet);
+			fileStructure.push_back(0);
 		}
 	}
 
@@ -58,6 +62,9 @@ Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette)
 	SetupSheets();
 
 	raygui::Panel* viewPanel = (raygui::Panel*)layout.GetControl("WorkspaceFrame");
+	raygui::Button* saveButton = (raygui::Button*)layout.GetControl("SaveButton");
+
+	saveButton->onClicked = std::bind(&Archive::Save, this);
 
 	viewport = raylib::RenderTexture(viewPanel->dimensions.width - 2, viewPanel->dimensions.height - 2);
 	viewportDim = raylib::Rectangle(viewPanel->dimensions.GetPosition().x + 1, viewPanel->dimensions.GetPosition().y + 1, viewPanel->dimensions.width - 2, viewPanel->dimensions.height - 2);
@@ -84,7 +91,17 @@ void Archive::Update()
 		cam.offset = raylib::Vector2(raylib::Mouse::GetDelta().x, raylib::Mouse::GetDelta().y * -1) + cam.offset;
 	}
 
-	cursorPos = cam.GetScreenToWorld(raylib::Vector2(raylib::Mouse::GetPosition().x - viewportDim.x, (viewport.texture.height / 2.f - ((raylib::Mouse::GetPosition().y - viewport.texture.height / 2.f) - viewportDim.y))));
+	cursorPos = cam.GetScreenToWorld(raylib::Vector2(raylib::Mouse::GetPosition().x - viewportDim.x, (viewport.texture.height / 2.f - ((raylib::Mouse::GetPosition().y - viewport.texture.height / 2.f) - viewportDim.y)))) + raylib::Vector2(1, -1);
+
+	if (raylib::Mouse::IsButtonDown(MOUSE_BUTTON_LEFT) 
+		&& raylib::Rectangle(raylib::Vector2(), currentSheet.GetSize()).CheckCollision(cursorPos) 
+		&& prevCursorPos != cursorPos
+		&& viewportDim.CheckCollision(GetMousePosition())) {
+		sheets[sheetChoice->activeIndex].DrawPixel(cursorPos, pal->GetSelectedColour());
+		sheets[sheetChoice->activeIndex].ConvertToImage(pal);
+		SwapSheet(sheetChoice->activeIndex);
+		prevCursorPos = cursorPos;
+	}
 }
 void Archive::Draw()
 {
@@ -95,7 +112,7 @@ void Archive::Draw()
 	currentSheet.Draw(0,0);
 
 	if (viewportDim.CheckCollision(GetMousePosition()))
-		DrawRectangle(cursorPos.x, cursorPos.y, 1, 1, Color{ 0,0,0,100 });
+		DrawRectangle(cursorPos.x - 1, cursorPos.y + 1, 1, 1, Color{ 0,0,0,100 });
 
 	cam.EndMode();
 	viewport.EndMode();
@@ -126,7 +143,6 @@ void Archive::SetupPalette(raygui::Layout& layout)
 	comboBox->onChoose = std::bind(&Archive::SwapPalette, this, std::placeholders::_1);
 	SwapPalette(0);
 }
-
 void Archive::SetupSheets()
 {
 	std::string list;
@@ -149,10 +165,45 @@ void Archive::SwapPalette(int index)
 	sheets[sheetChoice->activeIndex].ConvertToImage(pal);
 	currentSheet = sheets[sheetChoice->activeIndex].img.LoadTexture();
 }
-
 void Archive::SwapSheet(int index)
 {
 	SwapPalette(pal->paletteSelect->activeIndex);
+}
+void Archive::Save()
+{
+	unsigned char* fileData = (unsigned char*)MemAlloc(fileSize);
+	Header* hdr = (Header*)fileData;
+
+	strncpy(hdr->magic, "TIP1", 4);
+	hdr->numImgs = sheets.size() + cluts.size();
+
+	ImgHeader* imgHdr = (ImgHeader*)(hdr + 1);
+	int imgCnt = 0, palCnt = 0;
+	for (int i = 0; i < fileStructure.size(); i++) {
+		if (fileStructure[i]) {
+			memcpy(imgHdr, &cluts[palCnt].header, sizeof(ImgHeader));
+			PIX_RGB5* pix = (PIX_RGB5*)(imgHdr + 1);
+
+			for (int j = 0; j < 16; j++) {
+				*pix = ColourToRGB5(cluts[palCnt].cols[j]);
+				pix++;
+			}
+
+			imgHdr = (ImgHeader*)pix;
+			palCnt++;
+		}
+		else {
+			memcpy(imgHdr, &sheets[imgCnt].header, sizeof(ImgHeader));
+			memcpy(imgHdr + 1, sheets[imgCnt].data, (sheets[imgCnt].header.w * sheets[imgCnt].header.h) * 2);
+
+			imgHdr = (ImgHeader*)((unsigned char*)(imgHdr + 1) + ((sheets[imgCnt].header.w * sheets[imgCnt].header.h) * 2));
+			imgCnt++;
+		}
+	}
+
+	SaveFileData("GUSSUN.Q", fileData, fileSize);
+
+	MemFree(fileData);
 }
 
 void Archive::Sheet::ConvertToImage(Palette* pal)
@@ -167,4 +218,20 @@ void Archive::Sheet::ConvertToImage(Palette* pal)
 	}
 	img.Rotate(180);
 	img.FlipHorizontal();
+}
+
+void Archive::Sheet::DrawPixel(raylib::Vector2 pos, unsigned char palEntry)
+{
+	IndexedPixel* pix = (IndexedPixel*)data;
+	pos.y = img.height / 2.f - (pos.y - img.height / 2.f);
+	int offset = (int)pos.x + ((int)pos.y * img.width);
+
+	if (offset % 2) {
+		pix += offset / 2;
+		pix->pix1 = palEntry;
+	}
+	else {
+		pix += offset / 2;
+		pix->pix0 = palEntry;
+	}
 }

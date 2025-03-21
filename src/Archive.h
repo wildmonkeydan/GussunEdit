@@ -30,11 +30,14 @@ public:
 	struct Sheet {
 		unsigned char* data = nullptr;
 		raylib::Image img;
+		ImgHeader header;
 
 		void ConvertToImage(Palette* pal);
+		void DrawPixel(raylib::Vector2 pos, unsigned char palEntry);
 	};
 
 	struct CLUT {
+		ImgHeader header;
 		raylib::Color cols[16];
 	};
 
@@ -54,16 +57,21 @@ private:
 
 	void SwapPalette(int index);
 	void SwapSheet(int index);
+	void Save();
 
 	Palette* pal = nullptr;
 	raylib::Texture currentSheet;
 	raylib::RenderTexture viewport;
 	raylib::Camera2D cam;
 	raylib::Rectangle viewportDim;
+
 	raylib::Vector2 cursorPos;
+	raylib::Vector2 prevCursorPos;
 
 	std::vector<Sheet> sheets;
 	std::vector<CLUT> cluts;
+	std::vector<int> fileStructure;
+	int fileSize = 0;
 
 	raygui::ListView* sheetChoice;
 
