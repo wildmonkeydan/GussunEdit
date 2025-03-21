@@ -167,7 +167,8 @@ void Archive::SwapPalette(int index)
 }
 void Archive::SwapSheet(int index)
 {
-	SwapPalette(pal->paletteSelect->activeIndex);
+	if(index != -1)
+		SwapPalette(pal->paletteSelect->activeIndex);
 }
 void Archive::Save()
 {

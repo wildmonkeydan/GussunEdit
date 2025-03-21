@@ -15,7 +15,7 @@ int main() {
     raylib::Window window(screenWidth, screenHeight, "GussunEdit");
     raygui::Layout layout("GussunEdit.rgl");
     Palette pal;
-    Archive arch("GUSSUN.Q", layout, &pal);
+    Archive arch("PUNIKUN.Q", layout, &pal);
 
     SetTargetFPS(60);
 
