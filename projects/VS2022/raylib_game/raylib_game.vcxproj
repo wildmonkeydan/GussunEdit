@@ -375,10 +375,40 @@
     <ClCompile Include="..\..\..\src\raygui-cpp\Controls\Panel.cpp" />
     <ClCompile Include="..\..\..\src\raygui-cpp\Controls\WindowBox.cpp" />
     <ClCompile Include="..\..\..\src\raygui-cpp\Layout.cpp" />
+    <ClCompile Include="..\..\..\src\tinyfiledialogs\tinyfiledialogs.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Archive.h" />
     <ClInclude Include="..\..\..\src\Palette.h" />
+    <ClInclude Include="..\..\..\src\png++\color.hpp" />
+    <ClInclude Include="..\..\..\src\png++\config.hpp" />
+    <ClInclude Include="..\..\..\src\png++\consumer.hpp" />
+    <ClInclude Include="..\..\..\src\png++\convert_color_space.hpp" />
+    <ClInclude Include="..\..\..\src\png++\end_info.hpp" />
+    <ClInclude Include="..\..\..\src\png++\error.hpp" />
+    <ClInclude Include="..\..\..\src\png++\ga_pixel.hpp" />
+    <ClInclude Include="..\..\..\src\png++\generator.hpp" />
+    <ClInclude Include="..\..\..\src\png++\gray_pixel.hpp" />
+    <ClInclude Include="..\..\..\src\png++\image.hpp" />
+    <ClInclude Include="..\..\..\src\png++\image_info.hpp" />
+    <ClInclude Include="..\..\..\src\png++\index_pixel.hpp" />
+    <ClInclude Include="..\..\..\src\png++\info.hpp" />
+    <ClInclude Include="..\..\..\src\png++\info_base.hpp" />
+    <ClInclude Include="..\..\..\src\png++\io_base.hpp" />
+    <ClInclude Include="..\..\..\src\png++\packed_pixel.hpp" />
+    <ClInclude Include="..\..\..\src\png++\palette.hpp" />
+    <ClInclude Include="..\..\..\src\png++\pixel_buffer.hpp" />
+    <ClInclude Include="..\..\..\src\png++\pixel_traits.hpp" />
+    <ClInclude Include="..\..\..\src\png++\png.hpp" />
+    <ClInclude Include="..\..\..\src\png++\reader.hpp" />
+    <ClInclude Include="..\..\..\src\png++\require_color_space.hpp" />
+    <ClInclude Include="..\..\..\src\png++\rgba_pixel.hpp" />
+    <ClInclude Include="..\..\..\src\png++\rgb_pixel.hpp" />
+    <ClInclude Include="..\..\..\src\png++\solid_pixel_buffer.hpp" />
+    <ClInclude Include="..\..\..\src\png++\streaming_base.hpp" />
+    <ClInclude Include="..\..\..\src\png++\tRNS.hpp" />
+    <ClInclude Include="..\..\..\src\png++\types.hpp" />
+    <ClInclude Include="..\..\..\src\png++\writer.hpp" />
     <ClInclude Include="..\..\..\src\raygui-cpp\Control.h" />
     <ClInclude Include="..\..\..\src\raygui-cpp\Controls\Button.h" />
     <ClInclude Include="..\..\..\src\raygui-cpp\Controls\ComboBox.h" />
@@ -389,6 +419,7 @@
     <ClInclude Include="..\..\..\src\raygui-cpp\Controls\WindowBox.h" />
     <ClInclude Include="..\..\..\src\raygui-cpp\Layout.h" />
     <ClInclude Include="..\..\..\src\raygui.h" />
+    <ClInclude Include="..\..\..\src\tinyfiledialogs\tinyfiledialogs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

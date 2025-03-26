@@ -2,6 +2,7 @@
 #include "raygui-cpp/Controls/ComboBox.h"
 #include "raygui-cpp/Controls/Panel.h"
 #include "raygui-cpp/Controls/Button.h"
+#include "png++/png.hpp"
 
 PIX_RGB5 ColourToRGB5(raylib::Color& col) {
 	PIX_RGB5 conv = { col.r / 8, col.g / 8, col.b / 8, 0 };
@@ -198,6 +199,16 @@ void Archive::Save()
 			memcpy(imgHdr + 1, sheets[imgCnt].data, (sheets[imgCnt].header.w * sheets[imgCnt].header.h) * 2);
 
 			imgHdr = (ImgHeader*)((unsigned char*)(imgHdr + 1) + ((sheets[imgCnt].header.w * sheets[imgCnt].header.h) * 2));
+			png::image<png::index_pixel_4> image(sheets[imgCnt].img.GetSize().x, sheets[imgCnt].img.GetSize().y);
+			std::vector<png::color> palCols;
+			for (int j = 0; j < 16; j++) {
+				palCols.push_back(png::color(pal->colours[i].col.r, pal->colours[i].col.g, pal->colours[i].col.b));
+			}
+			png::palette palette(palCols);
+			image.set_palette(palette);
+			png::solid_pixel_buffer<png::index_pixel_4> pxBuff(sheets[imgCnt].img.GetSize().x, sheets[imgCnt].img.GetSize().y);
+			memcpy(pxBuff.get_bytes().data(), sheets[imgCnt].data, (sheets[imgCnt].header.w * sheets[imgCnt].header.h) * 2);
+			image.set_pixbuf(pxBuff);
 			imgCnt++;
 		}
 	}
@@ -205,6 +216,7 @@ void Archive::Save()
 	SaveFileData("GUSSUN.Q", fileData, fileSize);
 
 	MemFree(fileData);
+
 }
 
 void Archive::Sheet::ConvertToImage(Palette* pal)

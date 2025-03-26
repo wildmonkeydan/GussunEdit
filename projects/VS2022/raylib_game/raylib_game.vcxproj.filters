@@ -7,6 +7,12 @@
     <Filter Include="raygui-cpp\Controls">
       <UniqueIdentifier>{31feaa6c-cf47-4bf0-b994-0db0facf9230}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tinyfiledialogs">
+      <UniqueIdentifier>{23647752-8dd5-4be2-a3b1-e118fa919a23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="png++">
+      <UniqueIdentifier>{883ffbc4-a911-4cd8-8317-57fa76d42875}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\raygui.h" />
@@ -39,6 +45,96 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Archive.h" />
     <ClInclude Include="..\..\..\src\Palette.h" />
+    <ClInclude Include="..\..\..\src\tinyfiledialogs\tinyfiledialogs.h">
+      <Filter>tinyfiledialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\color.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\config.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\consumer.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\convert_color_space.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\end_info.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\error.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\ga_pixel.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\generator.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\gray_pixel.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\image.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\image_info.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\index_pixel.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\info.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\info_base.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\io_base.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\packed_pixel.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\palette.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\pixel_buffer.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\pixel_traits.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\png.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\reader.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\require_color_space.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\rgb_pixel.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\rgba_pixel.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\solid_pixel_buffer.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\streaming_base.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\tRNS.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\types.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\png++\writer.hpp">
+      <Filter>png++</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\main.cpp" />
@@ -71,5 +167,8 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\Archive.cpp" />
     <ClCompile Include="..\..\..\src\Palette.cpp" />
+    <ClCompile Include="..\..\..\src\tinyfiledialogs\tinyfiledialogs.c">
+      <Filter>tinyfiledialogs</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
