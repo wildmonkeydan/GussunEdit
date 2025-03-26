@@ -23,8 +23,8 @@ public:
 	};
 
 	struct ImgHeader {
-		int dummy, dummy2;
-		short x, y, w, h;
+		int dummy;
+		short dummy2, type, x, y, w, h;
 	};
 
 	struct Sheet {
@@ -38,7 +38,7 @@ public:
 
 	struct CLUT {
 		ImgHeader header;
-		raylib::Color cols[16];
+		raylib::Color* cols = nullptr;
 	};
 
 	struct IndexedPixel {

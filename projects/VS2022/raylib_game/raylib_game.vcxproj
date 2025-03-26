@@ -180,7 +180,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;PLATFORM_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAs>Default</CompileAs>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src\zlib;$(SolutionDir)..\..\src\libpng;$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -197,7 +197,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;PLATFORM_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAs>Default</CompileAs>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;$(SolutionDir)..\..\..\raylib-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src\zlib;$(SolutionDir)..\..\src\libpng;$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;$(SolutionDir)..\..\..\raylib-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -216,7 +216,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;PLATFORM_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAs>Default</CompileAs>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src\zlib;$(SolutionDir)..\..\src\libpng;$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -237,7 +237,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;PLATFORM_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAs>Default</CompileAs>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;$(SolutionDir)..\..\..\raylib-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src\zlib;$(SolutionDir)..\..\src\libpng;$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;$(SolutionDir)..\..\..\raylib-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -260,7 +260,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;PLATFORM_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src\zlib;$(SolutionDir)..\..\src\libpng;$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>Default</CompileAs>
       <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -284,7 +284,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;PLATFORM_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;$(SolutionDir)..\..\..\raylib-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src\zlib;$(SolutionDir)..\..\src\libpng;$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;$(SolutionDir)..\..\..\raylib-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>Default</CompileAs>
       <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -309,7 +309,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;PLATFORM_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src\zlib;$(SolutionDir)..\..\src\libpng;$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>Default</CompileAs>
       <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
     </ClCompile>
@@ -337,7 +337,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;PLATFORM_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;$(SolutionDir)..\..\..\raylib-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\src\zlib;$(SolutionDir)..\..\src\libpng;$(SolutionDir)..\..\src;$(SolutionDir)..\..\src\external;$(SolutionDir)..\..\..\raylib\src;$(SolutionDir)..\..\..\raylib-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>Default</CompileAs>
       <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -364,6 +364,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Archive.cpp" />
+    <ClCompile Include="..\..\..\src\libpng\png.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngerror.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngget.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngmem.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngpread.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngread.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngrio.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngrtran.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngrutil.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngset.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngtrans.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngwio.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngwrite.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngwtran.c" />
+    <ClCompile Include="..\..\..\src\libpng\pngwutil.c" />
     <ClCompile Include="..\..\..\src\main.cpp" />
     <ClCompile Include="..\..\..\src\Palette.cpp" />
     <ClCompile Include="..\..\..\src\raygui-cpp\Control.cpp" />
@@ -376,9 +391,31 @@
     <ClCompile Include="..\..\..\src\raygui-cpp\Controls\WindowBox.cpp" />
     <ClCompile Include="..\..\..\src\raygui-cpp\Layout.cpp" />
     <ClCompile Include="..\..\..\src\tinyfiledialogs\tinyfiledialogs.c" />
+    <ClCompile Include="..\..\..\src\zlib\adler32.c" />
+    <ClCompile Include="..\..\..\src\zlib\compress.c" />
+    <ClCompile Include="..\..\..\src\zlib\crc32.c" />
+    <ClCompile Include="..\..\..\src\zlib\deflate.c" />
+    <ClCompile Include="..\..\..\src\zlib\gzclose.c" />
+    <ClCompile Include="..\..\..\src\zlib\gzlib.c" />
+    <ClCompile Include="..\..\..\src\zlib\gzread.c" />
+    <ClCompile Include="..\..\..\src\zlib\gzwrite.c" />
+    <ClCompile Include="..\..\..\src\zlib\infback.c" />
+    <ClCompile Include="..\..\..\src\zlib\inffast.c" />
+    <ClCompile Include="..\..\..\src\zlib\inflate.c" />
+    <ClCompile Include="..\..\..\src\zlib\inftrees.c" />
+    <ClCompile Include="..\..\..\src\zlib\trees.c" />
+    <ClCompile Include="..\..\..\src\zlib\uncompr.c" />
+    <ClCompile Include="..\..\..\src\zlib\zutil.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Archive.h" />
+    <ClInclude Include="..\..\..\src\libpng\png.h" />
+    <ClInclude Include="..\..\..\src\libpng\pngconf.h" />
+    <ClInclude Include="..\..\..\src\libpng\pngdebug.h" />
+    <ClInclude Include="..\..\..\src\libpng\pnginfo.h" />
+    <ClInclude Include="..\..\..\src\libpng\pnglibconf.h" />
+    <ClInclude Include="..\..\..\src\libpng\pngpriv.h" />
+    <ClInclude Include="..\..\..\src\libpng\pngstruct.h" />
     <ClInclude Include="..\..\..\src\Palette.h" />
     <ClInclude Include="..\..\..\src\png++\color.hpp" />
     <ClInclude Include="..\..\..\src\png++\config.hpp" />
@@ -420,6 +457,19 @@
     <ClInclude Include="..\..\..\src\raygui-cpp\Layout.h" />
     <ClInclude Include="..\..\..\src\raygui.h" />
     <ClInclude Include="..\..\..\src\tinyfiledialogs\tinyfiledialogs.h" />
+    <ClInclude Include="..\..\..\src\zlib\crc32.h" />
+    <ClInclude Include="..\..\..\src\zlib\deflate.h" />
+    <ClInclude Include="..\..\..\src\zlib\gzguts.h" />
+    <ClInclude Include="..\..\..\src\zlib\inffast.h" />
+    <ClInclude Include="..\..\..\src\zlib\inffixed.h" />
+    <ClInclude Include="..\..\..\src\zlib\inflate.h" />
+    <ClInclude Include="..\..\..\src\zlib\inftrees.h" />
+    <ClInclude Include="..\..\..\src\zlib\trees.h" />
+    <ClInclude Include="..\..\..\src\zlib\zconf.h" />
+    <ClInclude Include="..\..\..\src\zlib\zutil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\..\..\src\zlib\treebuild.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

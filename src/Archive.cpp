@@ -24,9 +24,11 @@ Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette)
 		ImgHeader* imgHdr = (ImgHeader*)seekHead;
 		seekHead += sizeof(ImgHeader);
 
-		if (imgHdr->h == 1) { // Load as palette
+		if (imgHdr->type == 4) { // Load as palette
 			CLUT clut;
 			memcpy(&clut.header, imgHdr, sizeof(ImgHeader));
+			clut.cols = (raylib::Color*)MemAlloc(sizeof(raylib::Color) * imgHdr->w);
+
 			PIX_RGB5* col = (PIX_RGB5*)seekHead;
 
 			for (int i = 0; i < imgHdr->w; i++) {
@@ -77,6 +79,9 @@ Archive::~Archive()
 {
 	for (Sheet sheet : sheets) {
 		MemFree(sheet.data);
+	}
+	for (CLUT clut : cluts) {
+		MemFree(clut.cols);
 	}
 }
 
@@ -199,16 +204,24 @@ void Archive::Save()
 			memcpy(imgHdr + 1, sheets[imgCnt].data, (sheets[imgCnt].header.w * sheets[imgCnt].header.h) * 2);
 
 			imgHdr = (ImgHeader*)((unsigned char*)(imgHdr + 1) + ((sheets[imgCnt].header.w * sheets[imgCnt].header.h) * 2));
+
 			png::image<png::index_pixel_4> image(sheets[imgCnt].img.GetSize().x, sheets[imgCnt].img.GetSize().y);
-			std::vector<png::color> palCols;
+			png::palette palette(16);
 			for (int j = 0; j < 16; j++) {
-				palCols.push_back(png::color(pal->colours[i].col.r, pal->colours[i].col.g, pal->colours[i].col.b));
+				palette[j] = png::color(pal->colours[j].col.r, pal->colours[j].col.g, pal->colours[j].col.b);
 			}
-			png::palette palette(palCols);
 			image.set_palette(palette);
-			png::solid_pixel_buffer<png::index_pixel_4> pxBuff(sheets[imgCnt].img.GetSize().x, sheets[imgCnt].img.GetSize().y);
-			memcpy(pxBuff.get_bytes().data(), sheets[imgCnt].data, (sheets[imgCnt].header.w * sheets[imgCnt].header.h) * 2);
-			image.set_pixbuf(pxBuff);
+
+			IndexedPixel* pix = (IndexedPixel*)sheets[imgCnt].data;
+			for (int y = 0; y < sheets[imgCnt].img.height; y++) {
+				for (int x = 0; x < sheets[imgCnt].img.width / 2; x++) {
+					image.set_pixel((x * 2), y, pix->pix0);
+					image.set_pixel((x * 2) + 1, y, pix->pix1);
+					pix++;
+				}
+			}
+			image.write("Img" + std::to_string(i) + ".png");
+
 			imgCnt++;
 		}
 	}

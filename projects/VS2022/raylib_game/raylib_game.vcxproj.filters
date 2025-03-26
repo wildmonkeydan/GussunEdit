@@ -7,11 +7,20 @@
     <Filter Include="raygui-cpp\Controls">
       <UniqueIdentifier>{31feaa6c-cf47-4bf0-b994-0db0facf9230}</UniqueIdentifier>
     </Filter>
-    <Filter Include="tinyfiledialogs">
-      <UniqueIdentifier>{23647752-8dd5-4be2-a3b1-e118fa919a23}</UniqueIdentifier>
+    <Filter Include="External">
+      <UniqueIdentifier>{21cbd994-d48f-402f-be33-e17c4909c2e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="png++">
+    <Filter Include="External\libpng">
+      <UniqueIdentifier>{93e59934-1dee-461a-a6d9-0e142d663bcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\zlib">
+      <UniqueIdentifier>{9d1425be-be62-4998-abf0-ab9a679937dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\png++">
       <UniqueIdentifier>{883ffbc4-a911-4cd8-8317-57fa76d42875}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\tinyfiledialogs">
+      <UniqueIdentifier>{23647752-8dd5-4be2-a3b1-e118fa919a23}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,94 +55,145 @@
     <ClInclude Include="..\..\..\src\Archive.h" />
     <ClInclude Include="..\..\..\src\Palette.h" />
     <ClInclude Include="..\..\..\src\tinyfiledialogs\tinyfiledialogs.h">
-      <Filter>tinyfiledialogs</Filter>
+      <Filter>External\tinyfiledialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\color.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\config.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\consumer.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\convert_color_space.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\end_info.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\error.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\ga_pixel.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\generator.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\gray_pixel.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\image.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\image_info.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\index_pixel.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\info.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\info_base.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\io_base.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\packed_pixel.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\palette.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\pixel_buffer.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\pixel_traits.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\png.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\reader.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\require_color_space.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\rgb_pixel.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\rgba_pixel.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\solid_pixel_buffer.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\streaming_base.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\tRNS.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\types.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\png++\writer.hpp">
-      <Filter>png++</Filter>
+      <Filter>External\png++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\libpng\png.h">
+      <Filter>External\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\libpng\pngconf.h">
+      <Filter>External\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\libpng\pngdebug.h">
+      <Filter>External\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\libpng\pnginfo.h">
+      <Filter>External\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\libpng\pngpriv.h">
+      <Filter>External\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\libpng\pngstruct.h">
+      <Filter>External\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\libpng\pnglibconf.h">
+      <Filter>External\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\zlib\crc32.h">
+      <Filter>External\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\zlib\deflate.h">
+      <Filter>External\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\zlib\gzguts.h">
+      <Filter>External\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\zlib\inffast.h">
+      <Filter>External\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\zlib\inffixed.h">
+      <Filter>External\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\zlib\inflate.h">
+      <Filter>External\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\zlib\inftrees.h">
+      <Filter>External\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\zlib\trees.h">
+      <Filter>External\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\zlib\zconf.h">
+      <Filter>External\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\zlib\zutil.h">
+      <Filter>External\zlib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -168,7 +228,102 @@
     <ClCompile Include="..\..\..\src\Archive.cpp" />
     <ClCompile Include="..\..\..\src\Palette.cpp" />
     <ClCompile Include="..\..\..\src\tinyfiledialogs\tinyfiledialogs.c">
-      <Filter>tinyfiledialogs</Filter>
+      <Filter>External\tinyfiledialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\png.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngerror.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngget.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngmem.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngpread.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngread.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngrio.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngrtran.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngrutil.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngset.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngtrans.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngwio.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngwrite.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngwtran.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\libpng\pngwutil.c">
+      <Filter>External\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\adler32.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\compress.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\crc32.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\deflate.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\gzclose.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\gzlib.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\gzread.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\gzwrite.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\infback.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\inffast.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\inflate.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\inftrees.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\trees.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\uncompr.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\zlib\zutil.c">
+      <Filter>External\zlib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\..\..\src\zlib\treebuild.xml">
+      <Filter>External\zlib</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
