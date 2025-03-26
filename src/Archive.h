@@ -22,6 +22,12 @@ public:
 		int numImgs;
 	};
 
+	enum ImgType {
+		IT_4BIT = 0,
+		IT_8BIT = 1,
+		IT_PALETTE = 4
+	};
+
 	struct ImgHeader {
 		int dummy;
 		short dummy2, type, x, y, w, h;

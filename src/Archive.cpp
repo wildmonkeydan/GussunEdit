@@ -24,7 +24,7 @@ Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette)
 		ImgHeader* imgHdr = (ImgHeader*)seekHead;
 		seekHead += sizeof(ImgHeader);
 
-		if (imgHdr->type == 4) { // Load as palette
+		if (imgHdr->type == IT_PALETTE) { // Load as palette
 			CLUT clut;
 			memcpy(&clut.header, imgHdr, sizeof(ImgHeader));
 			clut.cols = (raylib::Color*)MemAlloc(sizeof(raylib::Color) * imgHdr->w);
