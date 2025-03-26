@@ -43,7 +43,7 @@ Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette)
 		else {
 			Sheet sheet;
 			memcpy(&sheet.header, imgHdr, sizeof(ImgHeader));
-			sheet.img = raylib::Image(imgHdr->w * 4, imgHdr->h);
+			sheet.img = raylib::Image(imgHdr->w * (imgHdr->type == IT_4BIT ? 4 : 2), imgHdr->h);
 			sheet.img.Format(PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
 			int imgSize = (imgHdr->w * imgHdr->h) * 2;
 
@@ -130,10 +130,11 @@ void Archive::SetupPalette(raygui::Layout& layout)
 {
 	raygui::ComboBox* comboBox = (raygui::ComboBox*)layout.GetControl("PaletteSelect");
 	pal->paletteSelect = comboBox;
+	pal->colours = (Palette::ColourBox*)MemAlloc(sizeof(Palette::ColourBox) * 256);
 
 	raylib::Vector2 offset(pal->paletteSelect->dimensions.x + pal->paletteSelect->dimensions.width + 72, pal->paletteSelect->dimensions.y);
 	raylib::Vector2 size(24, 24);
-	for (int i = 0; i < 16; i++) {
+	for (int i = 0; i < 256; i++) {
 		pal->colours[i].rect = raylib::Rectangle(offset, size);
 		offset += raylib::Vector2(24, 0);
 	}
@@ -165,7 +166,7 @@ void Archive::SetupSheets()
 
 void Archive::SwapPalette(int index)
 {
-	for (int i = 0; i < 16; i++) {
+	for (int i = 0; i < 256; i++) {
 		pal->colours[i].col = cluts[index].cols[i];
 	}
 	sheets[sheetChoice->activeIndex].ConvertToImage(pal);
@@ -234,12 +235,23 @@ void Archive::Save()
 
 void Archive::Sheet::ConvertToImage(Palette* pal)
 {
-	IndexedPixel* pix = (IndexedPixel*)data;
-	for (int y = 0; y < img.height; y++) {
-		for (int x = 0; x < img.width / 2; x++) {
-			img.DrawPixel(x * 2, y, pal->colours[pix->pix0].col);
-			img.DrawPixel((x * 2) + 1, y, pal->colours[pix->pix1].col);
-			pix++;
+	if (header.type == IT_4BIT) {
+		IndexedPixel* pix = (IndexedPixel*)data;
+		for (int y = 0; y < img.height; y++) {
+			for (int x = 0; x < img.width / 2; x++) {
+				img.DrawPixel(x * 2, y, pal->colours[pix->pix0].col);
+				img.DrawPixel((x * 2) + 1, y, pal->colours[pix->pix1].col);
+				pix++;
+			}
+		}
+	}
+	else {
+		unsigned char* pix = data;
+		for (int y = 0; y < img.height; y++) {
+			for (int x = 0; x < img.width; x++) {
+				img.DrawPixel(x, y, pal->colours[*pix].col);
+				pix++;
+			}
 		}
 	}
 	img.Rotate(180);
