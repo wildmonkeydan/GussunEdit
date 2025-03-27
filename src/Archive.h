@@ -64,6 +64,10 @@ private:
 	void SwapPalette(int index);
 	void SwapSheet(int index);
 	void Save();
+	void Export();
+	void Import();
+
+	std::string fname;
 
 	Palette* pal = nullptr;
 	raylib::Texture currentSheet;

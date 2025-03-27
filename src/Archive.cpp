@@ -3,6 +3,7 @@
 #include "raygui-cpp/Controls/Panel.h"
 #include "raygui-cpp/Controls/Button.h"
 #include "png++/png.hpp"
+#include "tinyfiledialogs/tinyfiledialogs.h"
 
 PIX_RGB5 ColourToRGB5(raylib::Color& col) {
 	PIX_RGB5 conv = { col.r / 8, col.g / 8, col.b / 8, 0 };
@@ -16,6 +17,7 @@ raylib::Color RGB5ToColour(PIX_RGB5* col) {
 Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette) : pal(palette)
 {
 	unsigned char* file = LoadFileData(filepath.c_str(), &fileSize);
+	fname = raylib::GetFileNameWithoutExt(filepath);
 
 	Header* hdr = (Header*)file;
 	unsigned char* seekHead = (unsigned char*)(hdr + 1);
@@ -66,8 +68,12 @@ Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette)
 
 	raygui::Panel* viewPanel = (raygui::Panel*)layout.GetControl("WorkspaceFrame");
 	raygui::Button* saveButton = (raygui::Button*)layout.GetControl("SaveButton");
+	raygui::Button* exprtButton = (raygui::Button*)layout.GetControl("ExportButton");
+	raygui::Button* imprtButton = (raygui::Button*)layout.GetControl("ImportButton");
 
 	saveButton->onClicked = std::bind(&Archive::Save, this);
+	exprtButton->onClicked = std::bind(&Archive::Export, this);
+	imprtButton->onClicked = std::bind(&Archive::Import, this);
 
 	viewport = raylib::RenderTexture(viewPanel->dimensions.width - 2, viewPanel->dimensions.height - 2);
 	viewportDim = raylib::Rectangle(viewPanel->dimensions.GetPosition().x + 1, viewPanel->dimensions.GetPosition().y + 1, viewPanel->dimensions.width - 2, viewPanel->dimensions.height - 2);
@@ -130,14 +136,26 @@ void Archive::SetupPalette(raygui::Layout& layout)
 {
 	raygui::ComboBox* comboBox = (raygui::ComboBox*)layout.GetControl("PaletteSelect");
 	pal->paletteSelect = comboBox;
-	pal->colours = (Palette::ColourBox*)MemAlloc(sizeof(Palette::ColourBox) * 256);
 
 	raylib::Vector2 offset(pal->paletteSelect->dimensions.x + pal->paletteSelect->dimensions.width + 72, pal->paletteSelect->dimensions.y);
 	raylib::Vector2 size(24, 24);
-	for (int i = 0; i < 256; i++) {
-		pal->colours[i].rect = raylib::Rectangle(offset, size);
-		offset += raylib::Vector2(24, 0);
+
+	if (cluts[0].header.w <= 16) {
+		for (int i = 0; i < cluts[0].header.w; i++) {
+			pal->colours[i].rect = raylib::Rectangle(offset, size);
+			offset += raylib::Vector2(24, 0);
+		}
 	}
+	else {
+		size = raylib::Vector2(12, 12);
+		raylib::Vector2 palOffset = offset;
+		for (int i = 0; i < cluts[0].header.w; i++) {
+			palOffset = offset + raylib::Vector2((i % 64) * size.x, (i / 64) * size.y);
+			pal->colours[i].rect = raylib::Rectangle(palOffset, size);
+		}
+	}
+
+	pal->palLen = cluts[0].header.w;
 
 	std::string list;
 	for (int i = 0; i < cluts.size(); i++) {
@@ -166,9 +184,10 @@ void Archive::SetupSheets()
 
 void Archive::SwapPalette(int index)
 {
-	for (int i = 0; i < 256; i++) {
+	for (int i = 0; i < cluts[index].header.w; i++) {
 		pal->colours[i].col = cluts[index].cols[i];
 	}
+	pal->palLen = cluts[index].header.w;
 	sheets[sheetChoice->activeIndex].ConvertToImage(pal);
 	currentSheet = sheets[sheetChoice->activeIndex].img.LoadTexture();
 }
@@ -206,23 +225,6 @@ void Archive::Save()
 
 			imgHdr = (ImgHeader*)((unsigned char*)(imgHdr + 1) + ((sheets[imgCnt].header.w * sheets[imgCnt].header.h) * 2));
 
-			png::image<png::index_pixel_4> image(sheets[imgCnt].img.GetSize().x, sheets[imgCnt].img.GetSize().y);
-			png::palette palette(16);
-			for (int j = 0; j < 16; j++) {
-				palette[j] = png::color(pal->colours[j].col.r, pal->colours[j].col.g, pal->colours[j].col.b);
-			}
-			image.set_palette(palette);
-
-			IndexedPixel* pix = (IndexedPixel*)sheets[imgCnt].data;
-			for (int y = 0; y < sheets[imgCnt].img.height; y++) {
-				for (int x = 0; x < sheets[imgCnt].img.width / 2; x++) {
-					image.set_pixel((x * 2), y, pix->pix0);
-					image.set_pixel((x * 2) + 1, y, pix->pix1);
-					pix++;
-				}
-			}
-			image.write("Img" + std::to_string(i) + ".png");
-
 			imgCnt++;
 		}
 	}
@@ -231,6 +233,74 @@ void Archive::Save()
 
 	MemFree(fileData);
 
+}
+
+void Archive::Export()
+{
+	if (sheets[sheetChoice->activeIndex].header.type == IT_4BIT) {
+		png::image<png::index_pixel_4> image(sheets[sheetChoice->activeIndex].img.GetSize().x, sheets[sheetChoice->activeIndex].img.GetSize().y);
+		png::palette palette(16);
+		for (int j = 0; j < 16; j++) {
+			palette[j] = png::color(pal->colours[j].col.r, pal->colours[j].col.g, pal->colours[j].col.b);
+		}
+		image.set_palette(palette);
+
+		IndexedPixel* pix = (IndexedPixel*)sheets[sheetChoice->activeIndex].data;
+		for (int y = 0; y < sheets[sheetChoice->activeIndex].img.height; y++) {
+			for (int x = 0; x < sheets[sheetChoice->activeIndex].img.width / 2; x++) {
+				image.set_pixel((x * 2), y, pix->pix0);
+				image.set_pixel((x * 2) + 1, y, pix->pix1);
+				pix++;
+			}
+		}
+		image.write(fname + std::to_string(sheetChoice->activeIndex + 1) + ".png");
+	}
+	else {
+		png::image<png::index_pixel> image(sheets[sheetChoice->activeIndex].img.GetSize().x, sheets[sheetChoice->activeIndex].img.GetSize().y);
+		png::palette palette(256);
+		for (int j = 0; j < 256; j++) {
+			palette[j] = png::color(pal->colours[j].col.r, pal->colours[j].col.g, pal->colours[j].col.b);
+		}
+		image.set_palette(palette);
+
+		unsigned char* pix = sheets[sheetChoice->activeIndex].data;
+		for (int y = 0; y < sheets[sheetChoice->activeIndex].img.height; y++) {
+			for (int x = 0; x < sheets[sheetChoice->activeIndex].img.width; x++) {
+				image.set_pixel(x, y, *pix);
+				pix++;
+			}
+		}
+		image.write(fname + std::to_string(sheetChoice->activeIndex + 1) + ".png");
+	}
+}
+
+void Archive::Import()
+{
+	int filterCount = 0;
+	const char** none = (const char**)TextSplit("*.png", ';', &filterCount);
+	const char* fName = tinyfd_openFileDialog("Open a file..", GetApplicationDirectory(), 0, none, ".png files", filterCount);
+	//std::ifstream importFile(fName);
+
+	if (sheets[sheetChoice->activeIndex].header.type == IT_4BIT) {
+		png::image<png::index_pixel_4> image(fName, png::require_color_space<png::index_pixel_4>());
+
+		auto pixBuff = image.get_pixbuf();
+
+		for (int i = 0; i < pixBuff.get_height(); i++) {
+			memcpy(sheets[sheetChoice->activeIndex].data + (i * (sheets[sheetChoice->activeIndex].img.width / 2)), (void*)pixBuff.get_row(i).get_data(), (sheets[sheetChoice->activeIndex].img.width / 2));
+		}
+	}
+	else {
+		png::image<png::index_pixel> image(fName);
+
+		auto pixBuff = image.get_pixbuf();
+
+		for (int i = 0; i < pixBuff.get_height(); i++) {
+			memcpy(sheets[sheetChoice->activeIndex].data + (i * (sheets[sheetChoice->activeIndex].img.width)), (void*)pixBuff.get_row(i).data(), (sheets[sheetChoice->activeIndex].img.width));
+		}
+	}
+
+	SwapSheet(sheetChoice->activeIndex);
 }
 
 void Archive::Sheet::ConvertToImage(Palette* pal)
@@ -260,16 +330,26 @@ void Archive::Sheet::ConvertToImage(Palette* pal)
 
 void Archive::Sheet::DrawPixel(raylib::Vector2 pos, unsigned char palEntry)
 {
-	IndexedPixel* pix = (IndexedPixel*)data;
-	pos.y = img.height / 2.f - (pos.y - img.height / 2.f);
-	int offset = (int)pos.x + ((int)pos.y * img.width);
+	if (header.type == IT_4BIT) {
+		IndexedPixel* pix = (IndexedPixel*)data;
+		pos.y = img.height / 2.f - (pos.y - img.height / 2.f);
+		int offset = (int)pos.x + ((int)pos.y * img.width);
 
-	if (offset % 2) {
-		pix += offset / 2;
-		pix->pix1 = palEntry;
+		if (offset % 2) {
+			pix += offset / 2;
+			pix->pix1 = palEntry;
+		}
+		else {
+			pix += offset / 2;
+			pix->pix0 = palEntry;
+		}
 	}
 	else {
-		pix += offset / 2;
-		pix->pix0 = palEntry;
+		unsigned char* pix = data;
+		pos.y = img.height / 2.f - (pos.y - img.height / 2.f);
+		int offset = (int)pos.x + ((int)pos.y * img.width);
+
+		pix += offset;
+		*pix = palEntry;
 	}
 }

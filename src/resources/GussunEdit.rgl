@@ -15,6 +15,6 @@ c 003 4 PaletteSelectLabel 24 744 120 24 0 Select Palette...
 c 004 5 SaveButton 48 0 24 24 0 #002#
 c 005 5 OpenFileButton 24 0 24 24 0 #005#
 c 006 4 OpenFileLabel 216 0 264 24 0 Editing
-c 007 5 UndoButton 96 0 24 24 0 #072#
-c 008 5 RedoButton 120 0 24 24 0 #073#
-c 009 10 PaletteSelect 24 768 120 24 0 ONE;TWO;THREE
+c 007 10 PaletteSelect 24 768 120 24 0 ONE;TWO;THREE
+c 008 5 ExportButton 72 0 24 24 0 #007#
+c 009 5 ImportButton 96 0 24 24 0 #006#
