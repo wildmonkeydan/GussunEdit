@@ -66,6 +66,7 @@ private:
 	void Save();
 	void Export();
 	void Import();
+	void Annotate();
 
 	std::string fname;
 

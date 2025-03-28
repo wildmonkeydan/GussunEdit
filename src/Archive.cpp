@@ -69,10 +69,12 @@ Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette)
 	raygui::Button* saveButton = (raygui::Button*)layout.GetControl("SaveButton");
 	raygui::Button* exprtButton = (raygui::Button*)layout.GetControl("ExportButton");
 	raygui::Button* imprtButton = (raygui::Button*)layout.GetControl("ImportButton");
+	raygui::Button* annoButton = (raygui::Button*)layout.GetControl("AnnotateButton");
 
 	saveButton->onClicked = std::bind(&Archive::Save, this);
 	exprtButton->onClicked = std::bind(&Archive::Export, this);
 	imprtButton->onClicked = std::bind(&Archive::Import, this);
+	annoButton->onClicked = std::bind(&Archive::Annotate, this);
 
 	viewport = raylib::RenderTexture(viewPanel->dimensions.width - 2, viewPanel->dimensions.height - 2);
 	viewportDim = raylib::Rectangle(viewPanel->dimensions.GetPosition().x + 1, viewPanel->dimensions.GetPosition().y + 1, viewPanel->dimensions.width - 2, viewPanel->dimensions.height - 2);
@@ -308,6 +310,15 @@ void Archive::Import()
 	}
 
 	SwapSheet(sheetChoice->activeIndex);
+}
+
+void Archive::Annotate()
+{
+	raylib::Image anno = currentSheet;
+	anno.ResizeNN(anno.width * 4, anno.height * 4);
+	anno.Rotate(180);
+	anno.FlipHorizontal();
+	anno.Export(raylib::GetFileNameWithoutExt(fname) + std::to_string(sheetChoice->activeIndex + 1) + "A.png");
 }
 
 void Archive::Sheet::ConvertToImage(Palette* pal)
