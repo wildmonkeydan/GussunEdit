@@ -14,10 +14,9 @@ raylib::Color RGB5ToColour(PIX_RGB5* col) {
 	return raylib::Color(col->r * 8, col->g * 8, col->b * 8);
 }
 
-Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette) : pal(palette)
+Archive::Archive(std::string filepath, raygui::Layout& layout, Palette* palette) : pal(palette), fname(filepath)
 {
 	unsigned char* file = LoadFileData(filepath.c_str(), &fileSize);
-	fname = raylib::GetFileNameWithoutExt(filepath);
 
 	Header* hdr = (Header*)file;
 	unsigned char* seekHead = (unsigned char*)(hdr + 1);
@@ -211,7 +210,7 @@ void Archive::Save()
 			memcpy(imgHdr, &cluts[palCnt].header, sizeof(ImgHeader));
 			PIX_RGB5* pix = (PIX_RGB5*)(imgHdr + 1);
 
-			for (int j = 0; j < 16; j++) {
+			for (int j = 0; j < cluts[palCnt].header.w; j++) {
 				*pix = ColourToRGB5(cluts[palCnt].cols[j]);
 				pix++;
 			}
@@ -229,7 +228,7 @@ void Archive::Save()
 		}
 	}
 
-	SaveFileData("GUSSUN.Q", fileData, fileSize);
+	SaveFileData(fname.c_str(), fileData, fileSize);
 
 	MemFree(fileData);
 
@@ -270,7 +269,7 @@ void Archive::Export()
 				pix++;
 			}
 		}
-		image.write(fname + std::to_string(sheetChoice->activeIndex + 1) + ".png");
+		image.write(raylib::GetFileNameWithoutExt(fname) + std::to_string(sheetChoice->activeIndex + 1) + ".png");
 	}
 }
 
