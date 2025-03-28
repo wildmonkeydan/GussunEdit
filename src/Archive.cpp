@@ -288,6 +288,14 @@ void Archive::Import()
 		for (int i = 0; i < pixBuff.get_height(); i++) {
 			memcpy(sheets[sheetChoice->activeIndex].data + (i * (sheets[sheetChoice->activeIndex].img.width / 2)), (void*)pixBuff.get_row(i).get_data(), (sheets[sheetChoice->activeIndex].img.width / 2));
 		}
+
+		IndexedPixel* pix = (IndexedPixel*)sheets[sheetChoice->activeIndex].data;
+		for (int y = 0; y < (sheets[sheetChoice->activeIndex].header.w * sheets[sheetChoice->activeIndex].header.h) * 2; y++) {
+			IndexedPixel cpy = *pix;
+			pix->pix0 = pix->pix1;
+			pix->pix1 = cpy.pix0;
+			pix++;
+		}
 	}
 	else {
 		png::image<png::index_pixel> image(fName);
